@@ -104,6 +104,10 @@ export default {
     logout() {
       localStorage.clear();
       localStorage.setItem('loggedInGoogle', false);
+      // localStorage.removeItem(
+      //   'storyid', 'categoryName','authGoogleID', 'isUserLoggedIn', 'usernameGoogle', 'username', 'loggedIn'
+      // );
+      
       this.$router.push("/home");
       this.username = '';
       location.reload();

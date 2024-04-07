@@ -1,10 +1,9 @@
 <template>
-  <div class="container" id="app">
+  <div class="container">
     <h2 class="text-center">Tìm Kiếm Truyện theo hình ảnh</h2>
     <div class="search-container">
-      <form class="search-form" @submit.prevent="predictTest">
+      <form class="search-form" @submit.prevent="searchStory">
         <input type="file" class="search-input" accept="image/*" @change="handleImageUpload" multiple>
-        <img v-for="img in linkImg" :src="img" alt="" width="150px" height="150px" id="predict" ref="imgSearch">
         <button type="submit" class="search-button">Tìm kiếm</button>
       </form>
     </div>
@@ -41,11 +40,7 @@
 </template>
 
 <script>
-const tf = require('@tensorflow/tfjs')
 export default {
-  mounted() {
-    this.loadModel()
-  },
   data() {
     return {
       selectedImages: [],
@@ -62,10 +57,7 @@ export default {
         { id: 9, img: '9.jpg', title: 'Tên truyện 1', description: 'Mô tả ngắn về truyện 1', link: '#' },
       ],
       perPage: 20,
-      currentPage: 1,
-      model: null,
-      tensor: null,
-      linkImg: []
+      currentPage: 1
     };
   },
   computed: {
@@ -78,39 +70,12 @@ export default {
     }
   },
   methods: {
-    async loadModel(){
-      const model = await tf.loadLayersModel('/static/model.json')
-      console.log("WTF IS THIS")
-      console.log(model.summary())
-      this.model = model
-    },
-    async predictTest(){
-      this.tensor = tf.transpose(this.tensor,[3,1,2,0])
-      // this.tensor = await tf.reshape(this.tensor,[1,150,150,1])
-
-      let predictions = await this.model.predict(this.tensor)
-      predictions = predictions.dataSync()
-      console.log(predictions)
-    },
     changePage(pageNumber) {
       this.currentPage = pageNumber;
-      window.scrollTo(0, 0); 
+      window.scrollTo(0, 0); // Cuộn trang lên đầu
     },
     handleImageUpload(event) {
       this.selectedImages = Array.from(event.target.files);
-      let url = URL.createObjectURL(this.selectedImages[0])
-      this.linkImg.push(url)
-      let myimg = new Image()
-      myimg.width = 150
-      myimg.height = 150
-      myimg.src = url
-
-      let img = tf.browser.fromPixels(myimg)
-      let normalizationOffSet = tf.scalar(255/2)
-      let tensor = img.resizeNearestNeighbor([150,150]).toFloat().sub(normalizationOffSet).div(normalizationOffSet).reverse(2).expandDims(0)
-      console.log(`this tensor: ${tensor}`)
-      this.tensor = tensor
-
     },
     searchStory() {
       let formData = new FormData();

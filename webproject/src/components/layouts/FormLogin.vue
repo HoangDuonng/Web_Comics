@@ -43,7 +43,7 @@ export default {
       email: '',
       password: '',
       showPassword: false,
-      rememberCredentials: false, 
+      rememberCredentials: false, // Thêm thuộc tính này để lưu trạng thái "Lưu thông tin đăng nhập"
     };
   },
   computed: {
@@ -52,6 +52,7 @@ export default {
     }
   },
   created() {
+    // Kiểm tra nếu có thông tin đăng nhập được lưu và người dùng đã đăng nhập trước đó
     if (localStorage.getItem('loggedIn') === 'true' && localStorage.getItem('savedEmail')) {
       this.email = localStorage.getItem('savedEmail');
       this.password = localStorage.getItem('savedPassword');
@@ -88,10 +89,6 @@ export default {
         console.log(error)
       }
     },
-    // loginGoogle() {
-    //   localStorage.setItem('loggedInGoogle', 'true');
-    //   window.location.href = "http://localhost:3000/auth/google";
-    // },
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
     }
@@ -108,8 +105,10 @@ export default {
   margin: 20px auto 0px;
   padding: 20px;
   background-color: #fff;
+  /* Đổi màu nền thành trắng */
   border-radius: 50px;
   border: 2px solid #000;
+  /* Thêm viền đen */
 }
 
 .form-group {
@@ -119,19 +118,25 @@ export default {
 .btn {
   margin-bottom: 10px;
   border: 2px solid #000;
+  /* Đổi viền nút thành đen */
   color: #000;
+  /* Đổi màu chữ của nút thành đen */
 }
 
 .btn-primary {
   width: 100%;
   background-color: #000;
+  /* Đổi màu nền nút đăng nhập thành đen */
   color: #fff;
+  /* Đổi màu chữ của nút đăng nhập thành trắng */
 }
 
 .input-group-text {
   cursor: pointer;
   height: 38px;
   background-color: #fff;
+  /* Đổi màu nền của icon mật khẩu thành trắng */
   border: 1px solid #000;
+  /* Đổi viền của icon mật khẩu thành đen */
 }
 </style>

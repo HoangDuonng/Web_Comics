@@ -100,7 +100,7 @@ export default {
       // console.log("hello");
     },
     logout() {
-      localStorage.clear();
+      localStorage.removeItem('loggedIn');
       EventBus.$emit('userLoggedIn', { isUser: true });
       this.$router.push("/home");
     },

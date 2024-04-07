@@ -39,6 +39,7 @@ export default new Router({
     { path: '/adduser', component: AddUser},
     { path: '/edituser', component: EditUser},
     { path: '/edit', name: 'EditStory', component: EditStory },
+    // { path: '/editauthor', name: 'EditAuthor', component: AuthorEdit},
     { path: '*', redirect: '/home' },
     { path: '/admin', redirect: '/storylist' },
     { path: '/editchapter',name: 'EditChapter', component: EditChapter},

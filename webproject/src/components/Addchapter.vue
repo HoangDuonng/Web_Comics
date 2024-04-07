@@ -72,11 +72,14 @@ export default {
       }catch(error){
         console.log(error)
       }
+      // Sau khi thêm thành công, bạn có thể chuyển hướng người dùng đến trang danh sách chương hoặc thực hiện các hành động khác
+      // this.$router.push("/chapterlist");
     },
     handleImageChange(event) {
       this.images = Array.from(event.target.files);
     },
     hideToast() {
+      // Ẩn toast khi người dùng nhấn nút đóng
       this.showToast = false;
     },
   },

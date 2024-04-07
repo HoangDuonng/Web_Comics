@@ -129,12 +129,16 @@ export default {
 .card-content img {
   width: 100%;
   height: 400px;
+  /* Đặt kích thước cố định cho chiều cao */
   object-fit: cover;
+  /* Đảm bảo rằng hình ảnh sẽ được căn chỉnh và cắt bớt */
   transition: transform 0.5s ease;
+  /* Thêm transition cho thuộc tính transform */
 }
 
 .card-content:hover img {
   transform: scale(1.1);
+  /* Phóng to 10% khi hover vào */
 }
 
 .overlay {
@@ -150,6 +154,7 @@ export default {
 
 .text-container {
   padding: 10px;
+  /* Khoảng cách giữa tên truyện và mô tả */
 }
 
 .pagination {
@@ -186,6 +191,7 @@ export default {
 
 router-link {
   position: relative;
+  /* hoặc position: absolute; */
   z-index: 1;
 }
 
@@ -197,12 +203,16 @@ router-link {
 @media screen and (max-width: 768px) {
   .button-group {
     flex-direction: column;
+    /* Sắp xếp các nút dọc theo nhau */
     align-items: center;
+    /* Căn giữa các nút */
   }
 
   .button-group button {
     width: 100%;
+    /* Độ rộng của các nút là 100% của container */
     margin-bottom: 10px;
+    /* Khoảng cách giữa các nút */
   }
 
 }
@@ -212,5 +222,6 @@ router-link {
 .col-sm-4,
 .col-6 {
   margin-bottom: 30px;
+  /* Thêm margin dưới cho mỗi cột */
 }
 </style>

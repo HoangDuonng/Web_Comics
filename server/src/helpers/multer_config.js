@@ -4,7 +4,7 @@ const {v4: uuid} = require('uuid')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './images');
+        cb(null, '././src/images');
     },
     filename: function (req, file, cb) {
         // cb(null, Date.now() + file.originalname);
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 
 const chuongImgStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './images/chuongImgs')
+        cb(null, '././src/images/chuongImgs')
     },
     filename: function (req, file, cb) {
         // cb(null, Date.now() + file.originalname);

@@ -1,6 +1,7 @@
 <template>
   <div class="container bg-light">
     <div class="carousel slide" id="recommended-carousel" data-ride="carousel" data-interval="5000">
+      <!-- Đặt data-interval để chuyển slide tự động sau mỗi 5 giây -->
       <div class="carousel-inner" style="white-space: nowrap">
         <div class="carousel-item" :class="{ active: index === currentIndex }"
           v-for="(stories, index) in groupedStories" :key="index">
@@ -121,6 +122,7 @@ export default {
         this.googleUsers = res.data;
         localStorage.setItem('usernameGoogle', this.googleUsers.username);
         EventBus.$emit('loginSuccess');
+        console.log(this.googleUsers);
       } catch (error) {
         console.log(error);
       }
@@ -147,6 +149,8 @@ export default {
   margin-top: 20px;
 }
 
+/*Carousel*/
+
 .card {
   margin: 10px;
   padding: 0px;
@@ -163,6 +167,7 @@ export default {
   height: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   transition: transform 1s ease;
+  /* Thêm hiệu ứng transition cho thuộc tính transform */
   transform: scale(1);
 }
 
@@ -172,29 +177,38 @@ export default {
   left: 0;
   width: 100%;
   background-color: transparent;
+  /*Màu nền cho phần tên  */
   padding: 10px;
   text-align: center;
   font-size: 25px;
   color: rgb(255, 255, 255);
+  /* Màu chữ mặc định */
   transition: color 0.3s ease;
+  /* Hiệu ứng chuyển màu */
 }
 
 .card-name:hover {
   color: rgb(21, 163, 66);
+  /* Màu chữ khi hover */
   text-decoration: transparent;
 }
 
 .card img {
   width: 100%;
   height: 300px;
+  /* Đặt kích thước cố định cho chiều cao */
   object-fit: cover;
+  /* Đảm bảo rằng hình ảnh sẽ được căn chỉnh và cắt bớt */
   transition: transform 0.5s ease;
+  /*Thêm hiệu ứng transition cho thuộc tính transform của hình ảnh*/
 }
 
 .card:hover img {
   transform: scale(1.1);
+  /*Phóng to 10% khi di chuột qua*/
 }
 
+/*Content*/
 .content {
   padding: 10px;
 }
@@ -212,6 +226,7 @@ export default {
 .card-content:hover .card-content-title,
 .card-content:hover .card-description {
   color: rgb(21, 163, 66);
+  /* Màu chữ khi hover */
 }
 
 .card-content {
@@ -225,8 +240,11 @@ export default {
 .card-content img {
   width: 100%;
   height: 400px;
+  /* Đặt kích thước cố định cho chiều cao */
   object-fit: cover;
+  /* Đảm bảo rằng hình ảnh sẽ được căn chỉnh và cắt bớt */
   transition: transform 0.5s ease;
+  /* Thêm transition cho thuộc tính transform */
 }
 
 .overlay {
@@ -242,9 +260,11 @@ export default {
 
 .text-container {
   padding: 10px;
+  /* Khoảng cách giữa tên truyện và mô tả */
 }
 
 .card-content:hover img {
   transform: scale(1.1);
+  /* Phóng to 10% khi hover vào */
 }
 </style>

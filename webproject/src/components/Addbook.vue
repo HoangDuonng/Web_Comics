@@ -119,12 +119,17 @@ export default {
           if (resAddBook.data.success === 1) {
             this.showToast = true;
           }
+          // console.log(book)
         }
+        // console.log(testUpload);
       } catch (err) {
         console.log(err);
       }
+      // console.log(this.image)
+      // this.showToast = true;
     },
     hideToast() {
+      // Ẩn toast khi người dùng nhấn nút đóng
       this.showToast = false;
     },
     handleImageChange(event) {

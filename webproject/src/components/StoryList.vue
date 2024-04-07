@@ -14,7 +14,7 @@
             />
             <div class="story-details">
               <span class="story-title">{{ story.tentruyen }}</span>
-              <span class="story-author">Tác giả: {{ story.tacgia }} </span>
+              <span class="story-author">Tác giả: </span>
             </div>
             <div class="story-actions">
               <button @click="addChapter(story._id)">Thêm chương</button>
@@ -37,7 +37,17 @@ export default {
   },
   data() {
     return {
-      stories: [],
+      stories: [
+        {
+          matruyen: 26,
+          anhbia: "img1.jpg",
+          tentruyen: "Tên truyện 1",
+          tenphu: "",
+          tentacgia: ""
+          // description: "Mô tả ngắn về truyện 1",
+          // link: "#",
+        },
+      ],
     };
   },
   methods: {
@@ -53,6 +63,7 @@ export default {
       }
     },
     editStory(id) {
+      // Xử lý sự kiện chỉnh sửa truyện ở đây
       this.$router.push({name: "EditStory", params: {storyid: id}, query: {storyid: id}});
     },
     async deleteStory(id) {

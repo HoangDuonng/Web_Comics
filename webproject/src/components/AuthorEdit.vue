@@ -13,12 +13,18 @@
         </div>
         <div class="form-group">
           <label for="author-avatar">Tải ảnh đại diện lên:</label>
-          <input type="file" id="image" for="image" multiple @change="handleImageUpload($event)" accept="image/*"
-            class="form-control-file" />
+          <input type="file" id="image" for="image" multiple @change="handleImageUpload($event)" accept="image/*" class="form-control-file" />
         </div>
         <button type="submit" class="btn btn-primary">Lưu</button>
       </form>
-
+      <div class="author-books">
+        <h2>Danh sách truyện của tác giả</h2>
+        <ul>
+          <li v-for="book in books" :key="book.id">
+            {{ book.title }}
+          </li>
+        </ul>
+      </div>
       <div v-if="showSuccessMessage" class="success-message">Thông tin tác giả đã được lưu thành công!</div>
       <form @submit.prevent="submitForm" class="author-form">
       </form>
@@ -41,7 +47,9 @@ export default {
         bio: "",
         avatar: "",
       },
-      books: [],
+      books: [ // Danh sách truyện của tác giả
+
+      ],
       showSuccessMessage: false,
     };
   },
@@ -49,6 +57,8 @@ export default {
     async getAuthorInfo() {
       try {
         const res = await AuthenticaionService.getEditAuthor(this.$route.params.authorid)
+        console.log(res.data)
+        //console.log(`id ${this.$route.params.Authorid}`)
         this.editedAuthor.name = res.data.author.tentacgia
         this.editedAuthor.bio = res.data.author.gioithieu
       } catch (err) {
@@ -56,24 +66,33 @@ export default {
       }
     },
     async submitForm() {
-      const formData = new FormData()
-      formData.append('fromName', "Admin")
-      formData.append('imageUploads', this.image)
+        const formData = new FormData()
+        formData.append('fromName',"Admin")
+        console.log('Image:', this.image)
+        formData.append('imageUploads',this.image)
+        console.log('FormData:', formData)
 
-      try {
-        const resImage = await AuthenticaionService.uploadImage(formData)
-        if (resImage.data.message === "success") {
-          const body = { tentacgia: this.editedAuthor.name, gioithieu: this.editedAuthor.bio, hinhdaidien: resImage.data.name }
+        try {
+          const resImage = await AuthenticaionService.uploadImage(formData)
+          // const body = { tentacgia: this.editedAuthor.name, gioithieu: this.editedAuthor.bio, hinhdaidien: resImage.data.name }
+          
+          // const res = await AuthenticaionService.updateAuthor(this.$route.params.Authorid, body)
+          if(resImage.data.message === "success"){
+          const body = {tentacgia: this.editedAuthor.name, gioithieu: this.editedAuthor.bio, hinhdaidien: resImage.data.name}
           const resEditAuthor = await AuthenticaionService.updateAuthor(this.id, body)
-          if (resEditAuthor.data.message === "success") {
+          if(resEditAuthor.data.message === "success"){
             console.log("Thông tin tác giả đã được lưu")
+            
+            //this.showToast = true
           }
+          // console.log(book)
         }
-        console.log("Thông tin tác giả đã được lưu:", this.editedAuthor)
-        this.$router.push("/authorm")
-      } catch (err) {
-        console.log(err)
-      }
+          console.log("Thông tin tác giả đã được lưu:", this.editedAuthor)
+          // Chuyển hướng người dùng sau khi lưu thành công
+          this.$router.push("/authorm")
+        } catch (err) {
+          console.log(err)
+        }
     },
     handleImageUpload(event) {
       this.image = event.target.files[0];
@@ -92,7 +111,6 @@ export default {
 .thietbi {
   margin-left: 250px;
 }
-
 .edit-author {
   max-width: 800px;
   margin: 0 auto;
@@ -151,7 +169,6 @@ export default {
   border-radius: 4px;
   margin-bottom: 20px;
 }
-
 @media (max-width: 767px) {
   .thietbi {
     margin: 0 auto;

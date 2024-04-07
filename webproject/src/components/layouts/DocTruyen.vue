@@ -31,6 +31,7 @@
 
 <script>
 import AuthenticaionService from '../../services/AuthenticaionService';
+// import RouterLink from 'vue-router';
 export default {
   mounted() {
     this.Chapter();
@@ -53,6 +54,11 @@ export default {
       currentChapterImages: [],
     };
   },
+  computed: {
+    // currentChapterImages() {
+    // return this.chapterImages[this.selectedChapter];
+    // },
+  },
   methods: {
     async Chapter() {
       try {
@@ -62,6 +68,7 @@ export default {
           this.currentChapterImages.push(getChapterImg.data.dataImg[i])
         }
         return this.currentChapterImages;
+        // console.log(this.currentChapterImages)
       } catch (error) {
         console.log(error)
         return [];
@@ -73,7 +80,11 @@ export default {
       for (let i = 0; i < getChapter.data.chapters.length; i++) {
         this.chapters.push(getChapter.data.chapters[i])
       }
+      // console.log(this.chapters)
     },
+    // loadChapter() {
+    //   console.log("loadChapter");
+    // },
     async prevChapter() {
       const currentIndex = this.chapters.findIndex(chapter => chapter._id === this.selectedChapter);
       if (currentIndex > 0) {
@@ -86,6 +97,7 @@ export default {
       } catch (error) {
         console.error('Error loading data:', error);
       }
+      console.log(this.selectedChapter);
     },
     async nextChapter() {
       const currentIndex = this.chapters.findIndex(chapter => chapter._id === this.selectedChapter);
@@ -99,6 +111,7 @@ export default {
       } catch (error) {
         console.error('Error loading data:', error);
       }
+      console.log(this.selectedChapter);
     },
     async changeChapterUp() {
       localStorage.setItem('chapterid', this.selectedChapter);
@@ -123,8 +136,11 @@ export default {
       window.location.href = "index.html";
     },
     reloadPage() {
-      location.reload(); 
+      location.reload(); // Tải lại trang
     },
+    // components: {
+    //   'router-link': RouterLink,
+    // },
   },
 };
 </script>
@@ -146,6 +162,7 @@ export default {
 .chapter-navigation {
   display: flex;
   justify-content: center;
+  /* Căn giữa */
   margin-bottom: 20px;
 }
 
@@ -165,6 +182,8 @@ export default {
 
 .fa-home {
   font-size: 16px;
+  /* Kích thước biểu tượng */
   margin-right: 5px;
+  /* Khoảng cách giữa biểu tượng và văn bản */
 }
 </style>

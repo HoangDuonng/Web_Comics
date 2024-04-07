@@ -23,10 +23,22 @@
             </div>
           </div>
           <div class="author-actions">
-            <button @click="editAuthor(author._id)" class="btn btn-secondary">
+            <!-- <router-link
+              :to="{
+                name: 'EditAuthor',
+                params: { authorid: author.matacgia },
+              }"
+              class="edit-button"
+            >
+              Chỉnh sửa
+            </router-link> -->
+            <button @click="editAuthor(author.id)" class="btn btn-secondary">
               Chỉnh sửa
             </button>
-            <button @click="deleteAuthor(author._id)" class="btn btn-danger">
+            <button
+              @click="deleteAuthor(author.matacgia)"
+              class="btn btn-danger"
+            >
               Xóa
             </button>
             <router-link :to="'/author'" class="btn btn-info">Xem</router-link>
@@ -57,12 +69,14 @@ export default {
         for (let i = 0; i < getAuthors.data.authors.length; i++) {
           this.authors.push(getAuthors.data.authors[i]);
         }
+        console.log(this.authors);
       } catch (err) {
         console.log(err);
       }
     },
-    editAuthor(id) {
-      this.$router.push({ name: "EditAuthor", params: { authorid: id }, query: { authorid: id }} );
+    editAuthor(authorId) {
+      // Chuyển hướng đến trang chỉnh sửa tác giả với ID tương ứng
+      this.$router.push({ path: "/authoredit", params: { id: authorId } });
     },
     async deleteAuthor(id) {
       try {
@@ -81,7 +95,7 @@ export default {
   margin-left: 250px;
   }
 .author-image {
-  width: 100px; 
+  width: 100px; /* Điều chỉnh kích thước ảnh theo ý muốn */
   height: auto;
   margin-right: 20px;
 }

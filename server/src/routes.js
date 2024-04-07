@@ -4,7 +4,6 @@ const Tacgia = require("./models/tacgia");
 const Chuong = require("./models/chuong");
 const ChuongHinhAnh = require("./models/chuong_hinhanh");
 const mongoose = require("mongoose");
-const tf = require('@tensorflow/tfjs')
 const { v4: uuid } = require("uuid");
 const { chuongImgUpload } = require("./helpers/multer_config");
 const upload = require("./helpers/multer_config").upload;
@@ -386,7 +385,7 @@ module.exports = (app) => {
     app.get("/author/:id", async (req, res) => {
       const { id } = req.params;
       try {
-        const author = await Tacgia.findById(id);
+        const author = await Tacgia.findOne({ matacgia: id });
         res.status(200).json({
           author,
         });
@@ -612,23 +611,10 @@ module.exports = (app) => {
             });
           }
         }
-      }catch(error){
+      } catch (err) {
         res.status(500).json({
-          error
-        })
+          error: err,
+        });
       }
-    })
-    // app.get('/imagedetect', async (req,res) => {
-    //     try{
-    //         const model = await tf.loadLayersModel('./static/Manga_face_model_2.h5')
-    //         console.log(model.summary())
-    //         res.status(200).json({
-    //             success: 1
-    //         })
-    //     }catch(error){
-    //         res.status(500).json({
-    //             error
-    //         })
-    //     }
-    // });
+    });
 };

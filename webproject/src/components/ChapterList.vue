@@ -37,6 +37,7 @@ export default {
     async getChapter(){
       try{
         const resGetChapter = await AuthenticaionService.getStoryChapter(this.$route.params.storyid)
+        console.log(resGetChapter.data.chapters[0])
         for(let i=0;i<resGetChapter.data.chapters.length;i++){
           this.chapters.push(resGetChapter.data.chapters[i])
         }
@@ -48,14 +49,18 @@ export default {
       console.log("success")
     },
     addChapter() {
+      // const nextChapterId = this.chapters.length + 1;//this.$router.push(`/addchapter/${nextChapterId}`);
       this.$router.push({name: 'AddChapter', params: {storyid: this.$route.params.storyid} });
+      console.log(this.$route.params)
     },
     editChapter(chapter) {
+        //this.$router.push(`/edit-chapter/${chapter.id}`);
       this.$router.push({name: "EditChapter", params: {storyChapterID: chapter._id, storyid: this.$route.params.storyid }, query: {storyChapterId: chapter._id} });
     },
     async deleteChapter(chapter) {
       try{
         const res = await AuthenticaionService.deleteStoryChapter(chapter._id)
+        // this.$router.push({name: "ChapterList", params : {storyid: this.$route.params.storyid}})
         if(res.data.success === 1){
           this.chapters.splice(0,this.chapters.length)
           this.getChapter()

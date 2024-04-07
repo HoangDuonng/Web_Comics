@@ -5,13 +5,10 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose')
 const config = require('./config/config')
-const exp = require('constants')
 
 app.use(express.urlencoded({extended: true}))
 app.use("/images", express.static(path.join(__dirname, 'images')))
 app.use("/images", express.static("images"))
-app.use("/static", express.static(path.join(__dirname, 'static')))
-app.use("/static", express.static("static"))
 app.use(bodyParser.json())
 app.use(cors())
 

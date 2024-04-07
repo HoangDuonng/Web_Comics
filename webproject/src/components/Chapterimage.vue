@@ -28,7 +28,7 @@ import Modal from "./Modal.vue";
 export default {
   props: {
     chapterTitle: String,
-    images: Array,
+    images: Array, // Mảng các đối tượng ảnh
   },
   data() {
     return {

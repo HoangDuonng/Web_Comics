@@ -1,6 +1,6 @@
 <template>
     <Footer :class="{ 'show-footer': isContentLongEnough }">
-      <p>TruyenVui | <a href="#">Facebook</a> | Email: info@truyenvui.com | Phone: 0396868799</p>
+      <p>TruyenVui | <a href="#">Facebook</a> | Email: info@truyenvui.com | Phone: 0123456789</p>
     </Footer>
   </template>
   
@@ -45,12 +45,14 @@
     height: 60px;
   }
   
+  /* Hiển thị footer trên màn hình có độ rộng lớn hơn 768px */
   @media (min-width: 768px) {
     .show-footer {
       display: block;
     }
   }
   
+  /* Thiết lập các phong cách khác cho footer trên các kích thước màn hình nhỏ hơn */
   @media (max-width: 767px) {
     footer {
       padding: 10px 0;

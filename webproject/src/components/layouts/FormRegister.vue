@@ -52,6 +52,7 @@ export default {
     register() {
       this.axios.post("http://localhost:8888/form-register", this.formdata)
         .then((response) => {
+          console.log(response);
           if (response.data.success > 0) {
             this.message = "Bạn đã đăng ký thành công";
             this.success = response.data.success;
@@ -80,7 +81,7 @@ export default {
       this.showPassword = !this.showPassword;
     },
     resetForm() {
-      this.formdata = { 
+      this.formdata = { // Đặt lại giá trị của formdata về trạng thái ban đầu
         first_name: '',
         email: '',
         password: ''
@@ -118,25 +119,25 @@ export default {
 
 .btn-primary {
   width: 100%;
-  background-color: #000; 
-  color: #fff; 
-  border: 2px solid #000; 
+  background-color: #000; /* Màu nền mặc định */
+  color: #fff; /* Màu chữ mặc định */
+  border: 2px solid #000; /* Viền mặc định */
 }
 
 .btn-primary:hover {
-  background-color: #333; 
-  color: #fff;
+  background-color: #333; /* Màu nền khi hover */
+  color: #fff; /* Màu chữ khi hover */
 }
 
 .btn-success {
   width: 100%;
-  background-color: #fff; 
-  color: #000; 
-  border: 2px solid #000; 
+  background-color: #fff; /* Màu nền mặc định */
+  color: #000; /* Màu chữ mặc định */
+  border: 2px solid #000; /* Viền mặc định */
 }
 
 .btn-success:hover {
-  background-color: #333; 
-  color: #fff; 
+  background-color: #333; /* Màu nền khi hover */
+  color: #fff; /* Màu chữ khi hover */
 }
 </style>

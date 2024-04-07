@@ -90,6 +90,7 @@ export default {
           this.$route.params.storyid
         );
         console.log(res.data);
+        // console.log(`id ${this.$route.params.storyid}`)
         this.editedStory.bookName = res.data.tentruyen;
         this.editedStory.alias = res.data.tenphu;
         this.editedStory.author = res.data.tacgia;
@@ -116,7 +117,8 @@ export default {
         };
         const res = await AuthenticaionService.updateStory(this.id, body);
         console.log("Thông tin truyện đã được lưu:", this.editedStory);
-        this.$router.push("/story-list"); 
+        // Chuyển hướng người dùng sau khi lưu thành công
+        this.$router.push("/story-list"); // Điều hướng về danh sách truyện sau khi lưu
       } catch (err) {
         console.log(err);
       }

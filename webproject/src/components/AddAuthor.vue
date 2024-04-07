@@ -91,12 +91,17 @@ export default {
           if(resAddAuthor.data.message === "success"){
             this.showToast = true
           }
+          // console.log(book)
         }
+        // console.log(testUpload);
       }catch(err){
         console.log(err)
       }
+      // console.log(this.image)
+      // this.showToast = true;
     },
     hideToast() {
+      // Ẩn toast khi người dùng nhấn nút đóng
       this.showToast = false;
     },
     handleImageChange(event) {
@@ -148,7 +153,7 @@ export default {
   color: #fff;
   padding: 10px;
   border-radius: 4px;
-  margin-top: 10px; 
+  margin-top: 10px; /* Thêm margin-top để tạo khoảng cách với form */
 }
 @media (max-width: 768px) {
   .thietbi {
@@ -159,15 +164,15 @@ export default {
   }
 
   .author-form .form-control {
-    width: calc(100% - 16px); 
+    width: calc(100% - 16px); /* Giảm khoảng cách cho input */
   }
 
   .author-form .btn {
-    width: 100%; 
+    width: 100%; /* Chuyển nút xuống dòng */
   }
 
   .success-message {
-    margin-top: 5px; 
+    margin-top: 5px; /* Giảm margin-top cho thông báo thành công */
   }
 }
 

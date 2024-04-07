@@ -92,11 +92,11 @@ export default {
   border: 1px solid #ccc;
   font-size: 20px;
   border-radius: 5px;
-  height: auto; 
+  height: auto; /* Đặt chiều cao tự động */
   text-align: left;
-  overflow-wrap: break-word; 
-  display: inline-block; 
-  vertical-align: top; 
+  overflow-wrap: break-word; /* Phân chia từng từ để tránh tràn ra ngoài */
+  display: inline-block; /* Hiển thị như một khối mở rộng theo nội dung */
+  vertical-align: top; /* Căn chỉnh theo vị trí dọc */
   padding: auto;
 }
 .description-box i{
@@ -105,8 +105,8 @@ export default {
 }
 @media (max-width: 768px) {
   .description-box {
-    font-size: 14px; 
-    padding: 5px; 
+    font-size: 14px; /* Decrease font size for smaller screens */
+    padding: 5px; /* Decrease padding for smaller screens */
   }
   .description-box i{
     font-size: 14px;
@@ -121,7 +121,7 @@ export default {
 }
 .card-content:hover .card-content-title,
 .card-content:hover .card-description {
-  color: rgb(21, 163, 66); 
+  color: rgb(21, 163, 66); /* Màu chữ khi hover */
 }
 .card-content{
   margin: 10px;
@@ -141,16 +141,16 @@ export default {
   transition: all 1.5s ease;
 }
 .text-container {
-  padding: 10px;
+  padding: 10px; /* Khoảng cách giữa tên truyện và mô tả */
 }
 .card-content img {
   width: 100%;
-  height: 400px; 
+  height: 400px; /* Đặt kích thước cố định cho chiều cao */
   object-fit: cover;
-  transition: transform 0.5s ease; 
+  transition: transform 0.5s ease; /* Thêm transition cho thuộc tính transform */
 }
 .card-content:hover img {
-  transform: scale(1.1); 
+  transform: scale(1.1); /* Phóng to 10% khi hover vào */
 }
 .pagination {
     margin-top: 20px;

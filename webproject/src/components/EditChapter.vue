@@ -66,6 +66,7 @@ export default {
           const imgs = resUploadImgs.data.Images
           const hinhanh_chuong = {machuong: "", hinhanh: imgs} 
           const resSaveImg = await AuthenticaionService.saveChapterImgToDB(this.$route.params.storyChapterID, hinhanh_chuong)
+          // const resAddImgsToDB = await AuthenticaionService
           if(resSaveImg.data.success === 1){
             this.$router.push({name: "ChapterList", params: {storyid: this.$route.params.storyid}})
           }
@@ -74,7 +75,11 @@ export default {
       }catch(error){
         console.log(error)
       }
+
+      // Gửi formData đến backend API để lưu thay đổi chương và hình ảnh vào cơ sở dữ liệu
       console.log("Form Data:", formData);
+
+      // Sau khi lưu thành công, bạn có thể chuyển hướng người dùng đến trang chi tiết chương hoặc thực hiện các hành động khác
     },
     async chapterImages(){
       this.dataImages.splice(0,this.dataImages.length)
@@ -86,16 +91,25 @@ export default {
           res.data.dataImg.forEach(element => {
             this.dataImages.push(`${element}`)
           });
+          console.log(res.data)
         }
       }catch(error){
         console.log(error)
       }
     },
     handleImageChange(event) {
+      // Xử lý khi người dùng chọn ảnh từ input file
+      // const selectedFiles = event.target.files;
+      // for (let i = 0; i < selectedFiles.length; i++) {
+      //   // const file = selectedFiles[i];
+      //   // this.images.push({ name: file.name, url: URL.createObjectURL(file) });
+      //   this.images.push(selectedFiles[i])
+      // }
       this.images = event.target.files
       console.log(this.images)
     },
     async removeImage(image) {
+      // Xử lý khi người dùng muốn xóa ảnh
       try{
         const res = await AuthenticaionService.deleteChapterImgs(this.$route.params.storyChapterID,image)
         if(res.data.success===1){
