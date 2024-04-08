@@ -29,7 +29,7 @@ export default {
     return Api().get("api/user");
   },
   getUserGoogle(authGoogleID) {
-    return Api().get(`api/google/${authGoogleID}`);
+    return Api().get(`api//google/${authGoogleID}`);
   },
   deleteUser(id) {
     return Api().delete(`api/user/${id}`);
