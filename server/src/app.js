@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 require('./routes')(app)
-require('./google')(app)
+//require('./google')(app)
 app.listen(config.port, () =>{
     console.log(`app is listening on port ${config.port}`)
 })

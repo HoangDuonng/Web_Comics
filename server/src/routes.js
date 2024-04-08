@@ -21,12 +21,12 @@ mongoose
   });
 
 module.exports = (app) => {
-    app.post("/findpicture", async (req, res) => {
+    app.post("/api/findpicture", async (req, res) => {
       const newTruyen = new Truyen(req.body);
       await newTruyen.save();
       res.send("successfully");
     }),
-    app.get("/category", async (req, res) => {
+    app.get("/api/category", async (req, res) => {
       try {
         const categories = await Truyen.find({}).distinct("theloai");
         const categoryObjects = categories.map(category => ({ name: category }));
@@ -39,7 +39,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/category/:categoryName", async (req, res) => {
+    app.get("/api/category/:categoryName", async (req, res) => {
       try {
         const categoryName = req.params.categoryName;
         const stories = await Truyen.find({ theloai: categoryName });
@@ -52,7 +52,7 @@ module.exports = (app) => {
         });
       }
     });    
-    app.put("/read/:id", async (req, res) => {
+    app.put("/api/read/:id", async (req, res) => {
       try {
         const { id } = req.params;
         const truyen = await Truyen.findByIdAndUpdate(id, 
@@ -68,7 +68,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/history",async (req, res) => {
+    app.get("/api/history",async (req, res) => {
       try {
         const truyens = await Truyen.find({ dadoc: 1 });
         if (!truyens || truyens.length === 0) {
@@ -79,7 +79,7 @@ module.exports = (app) => {
         return res.status(500).json({ message: "Lối rồi fix đê =))" });
       }
     }),
-    app.put("/history/:id", async (req, res) => {
+    app.put("/api/history/:id", async (req, res) => {
       try {
         const { id } = req.params;
         const truyen = await Truyen.findByIdAndUpdate(id, 
@@ -95,7 +95,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/search/:search", async (req, res) => {
+    app.get("/api/search/:search", async (req, res) => {
       const { search } = req.params;
       try {
         const story = await Truyen.find({
@@ -110,7 +110,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.post("/login", async (req, res) => {
+    app.post("/api/login", async (req, res) => {
       try {
         const pageUser = req.body;
         const user = await User.findOne({ email: pageUser.email });
@@ -146,7 +146,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.post("/register", async (req, res) => {
+    app.post("/api/register", async (req, res) => {
       try {
         const data = req.body;
         const resFindDupUser = await User.findOne({
@@ -189,7 +189,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/user", async (req, res) => {
+    app.get("/api/user", async (req, res) => {
       try {
         const datalist = await User.find({});
         res.status(200).json({
@@ -201,7 +201,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/google/:authGoogleID", async (req, res) => {
+    app.get("/api/google/:authGoogleID", async (req, res) => {
       try {
         const user = await User.findOne({
           authGoogleID: req.params.authGoogleID,
@@ -216,7 +216,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.delete("/user/:id", async (req, res) => {
+    app.delete("/api/user/:id", async (req, res) => {
       try {
         const { id } = req.params;
         const resData = await User.findByIdAndDelete(id);
@@ -230,7 +230,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.post("/upload", upload.array("imageUploads", 10), (req, res) => {
+    app.post("/api/upload", upload.array("imageUploads", 10), (req, res) => {
       const senderName = req.body.fromName;
 
       if (senderName == null || senderName == undefined) {
@@ -260,7 +260,7 @@ module.exports = (app) => {
       }
     }),
     // ================== Story ==================
-    app.post("/story", async (req, res) => {
+    app.post("/api/story", async (req, res) => {
       const book = req.body;
       const newTruyen = await Truyen(book);
       let error = newTruyen.validateSync();
@@ -300,7 +300,7 @@ module.exports = (app) => {
         res.send(respond);
       }
     }),
-    app.get("/story", async (req, res) => {
+    app.get("/api/story", async (req, res) => {
       try {
         const books = await Truyen.find({});
         res.status(200).json(books);
@@ -308,7 +308,7 @@ module.exports = (app) => {
         console.log(err);
       }
     }),
-    app.get("/story/:id", async (req, res) => {
+    app.get("/api/story/:id", async (req, res) => {
       try {
         const { id } = req.params;
         const truyen = await Truyen.findById(id);
@@ -319,7 +319,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.put("/story/:id", async (req, res) => {
+    app.put("/api/story/:id", async (req, res) => {
       try {
         const { id } = req.params;
         const truyen = await Truyen.findByIdAndUpdate(id, req.body, {
@@ -335,7 +335,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.delete("/story/:id", async (req, res) => {
+    app.delete("/api/story/:id", async (req, res) => {
       try {
         const { id } = req.params;
         const truyen = await Truyen.findByIdAndDelete(id);
@@ -349,7 +349,7 @@ module.exports = (app) => {
       }
     }),
     // ================== Author ==================
-    app.post("/author", async (req, res) => {
+    app.post("/api/author", async (req, res) => {
       const author = req.body;
       const newTacgia = new Tacgia(author);
       let error = newTacgia.validateSync();
@@ -370,7 +370,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/author", async (req, res) => {
+    app.get("/api/author", async (req, res) => {
       try {
         const authors = await Tacgia.find({});
         res.status(200).json({
@@ -382,7 +382,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/author/:id", async (req, res) => {
+    app.get("/api/author/:id", async (req, res) => {
       const { id } = req.params;
       try {
         const author = await Tacgia.findOne({ matacgia: id });
@@ -395,7 +395,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.put("/author/:id", async (req, res) => {
+    app.put("/api/author/:id", async (req, res) => {
       const { id } = req.params;
       try {
         const author = await Tacgia.findOneAndUpdate(
@@ -413,7 +413,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.delete("/author/:id", async (req, res) => {
+    app.delete("/api/author/:id", async (req, res) => {
       const { id } = req.params;
       try {
         const author = await Tacgia.findOneAndDelete(id);
@@ -427,7 +427,7 @@ module.exports = (app) => {
       }
     }),
     // ================== Story Chapter ==================
-    app.post("/story/:id/chapter", async (req, res) => {
+    app.post("/api/story/:id/chapter", async (req, res) => {
       const { id } = req.params;
       const chapter = req.body;
       chapter.matruyen = id;
@@ -455,7 +455,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/story/:id/chapter", async (req, res) => {
+    app.get("/api/story/:id/chapter", async (req, res) => {
       const { id } = req.params;
       try {
         const chapters = await Chuong.find({ matruyen: id });
@@ -468,7 +468,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.delete("/story/:id/chapter", async (req, res) => {
+    app.delete("/api/story/:id/chapter", async (req, res) => {
       try {
         const { id } = req.params;
         const resData = await Chuong.findByIdAndDelete(id);
@@ -482,7 +482,7 @@ module.exports = (app) => {
       }
     }),
     app.post(
-      "/uploadChuongImg",
+      "/api/uploadChuongImg",
       chuongImgUpload.array("imageUploads", 10),
       (req, res) => {
         const senderName = req.body.fromName;
@@ -515,7 +515,7 @@ module.exports = (app) => {
         }
       }
     ),
-    app.post("/chapter/:chapterid", async (req, res) => {
+    app.post("/api/chapter/:chapterid", async (req, res) => {
       const { chapterid } = req.params;
       const data = req.body;
       data.machuong = chapterid;
@@ -540,7 +540,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.get("/chapter/:chapterid", async (req, res) => {
+    app.get("/api/chapter/:chapterid", async (req, res) => {
       const { chapterid } = req.params;
       try {
         const data = await ChuongHinhAnh.findOne({ machuong: chapterid });
@@ -563,7 +563,7 @@ module.exports = (app) => {
         });
       }
     }),
-    app.delete("/chapter/:chapterid/:imagename", async (req, res) => {
+    app.delete("/api/chapter/:chapterid/:imagename", async (req, res) => {
       const { chapterid } = req.params;
       const { imagename } = req.params;
       const directoryPath = "images/chuongImgs/";
